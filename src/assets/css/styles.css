@@ -1,0 +1,117 @@
+.table td, .table th {
+  padding: .75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+  border: 1px solid;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 1px solid #040404;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.color-blue {
+  color: rgb(0, 123, 255);
+}
+
+.icon-medium {
+  font-size: 40px;
+}
+
+.color-yellow {
+  color: #ffc107;
+}
+
+#editablecard > .table thead th:nth-child(4) {
+  display: none;
+}
+
+.dashboardcards {
+  min-width: 250px;
+  min-height: 200px;
+  background-color: #f3f3f7 !important;
+  padding: 0% !important;
+}
+
+.innerdashboardcards {
+  min-width: 300px;
+  min-height: 200px;
+  background-color: #f3f3f7 !important;
+  padding: 0% !important;
+}
+
+.innerdashboardcards .MuiCardActionArea-root {
+  width: 300px  !important;
+  height: 200px  !important;
+}
+
+.MuiCardActionArea-root {
+  width: 250px !important;
+  height: 200px !important;
+  /* background-color: transparent !important; */
+}
+
+.overflow-scroll {
+  overflow: auto;
+}
+
+.space-evenly {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.innerdashcardsp {
+  font-size: 15px !important;
+  text-align: center;
+}
+
+.word-wrap-break {
+  word-wrap: break-word;
+}
+
+.spinner {
+  animation: Rotate 2.4s both infinite linear;
+}
+.path {
+  animation: DrawLine 1.6s both infinite alternate linear;
+  fill: none;
+  stroke: #000;
+  stroke-width: 50;
+}
+@keyframes Rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes DrawLine {
+  0% {
+    stroke-dasharray: 0 126;
+  }
+  100% {
+    stroke-dasharray: 126 126;
+  }
+}
+
+.datatablecontent {
+  margin-top: 1em;
+}
+
+.dropdown-content li  {
+  background-color: black;
+  color: white;
+  /* z-index: 1000; */
+}

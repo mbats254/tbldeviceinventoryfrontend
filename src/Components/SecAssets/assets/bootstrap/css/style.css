@@ -1,0 +1,154 @@
+.bg-gradient-primary {
+  background-color: #cf7207;
+  background-image: linear-gradient(180deg,#cf7207 10%,#726204);
+  background-size: cover;
+}
+
+.dropdown .dropdown-list .dropdown-header {
+  background-color: #cf7207;
+  border: 1px solid #4e73df;
+  padding-top: .75rem;
+  padding-bottom: .75rem;
+  color: #fff;
+}
+
+.table td, .table th {
+  padding: .50rem;
+  vertical-align: top;
+  border-top: 1px solid #e3e6f0;
+  text-transform: capitalize;
+}
+
+.custom-control {
+  position: relative;
+  display: block;
+  min-height: 1.5rem;
+  padding-left: 1.0rem;
+}
+
+.span.new {
+  background-color: rgba(22,189,225,0.6);
+  border-radius: .5em .5em .5em .5em;
+}
+
+.span.cancelled {
+  background-color: rgba(255,0,0,0.3);
+  border-radius: .5em .5em .5em .5em;
+}
+
+.span.paid {
+  background-color: rgba(0,255,0,0.6);
+  border-radius: .5em .5em .5em .5em;
+}
+
+.ordersmodal .modal-dialog {
+  position: relative;
+  max-width: 800px;
+  /*margin: .5rem;*/
+  pointer-events: none;
+}
+
+.addcustomermodal .modal-dialog {
+  position: relative;
+  max-width: 800px;
+  /*margin: .5rem;*/
+  pointer-events: none;
+}
+
+.createproductmodal .modal-dialog {
+  position: relative;
+  max-width: 800px;
+  /*margin: .5rem;*/
+  pointer-events: none;
+}
+
+.addlinemodal .modal-dialog {
+  position: relative;
+  max-width: 600px;
+  /*margin: .5rem;*/
+  pointer-events: none;
+  /*height: 50%;*/
+}
+
+.chartContainer {
+  height: 500px;
+}
+
+a:hover {
+  color: #224abe;
+  text-decoration: blink;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.sidenav {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 10;
+  left: 0;
+  background-color: #FFFFFF;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #111;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+  background-color: green;
+  color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+  float: right;
+  padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
