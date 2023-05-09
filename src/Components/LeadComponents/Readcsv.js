@@ -25,6 +25,8 @@ export default function ReadcsvFxn() {
     // It state will contain the error when
     // correct file extension is not used
     const [error, setError] = useState("");
+
+    const[userTeam, setTeam] = useState(localStorage.getItem('user_team'));
      
     // It will store the file uploaded by the user
     const [file, setFile] = useState("");
@@ -91,6 +93,7 @@ export default function ReadcsvFxn() {
                
                }
                      var data = result['Sheet1'][i]
+                     data['UserTeam'] = userTeam
             //    console.log(data)
                  
                     // // console.log(data)
@@ -217,6 +220,7 @@ export default function ReadcsvFxn() {
                                 
                            
                                    
+                      
                         <div className="col-md-12 p-2">
                                     <div className="py-1">
                                         <label className="text-capitalize" style={fontFamilyNunito}> Enter Excel File</label>
