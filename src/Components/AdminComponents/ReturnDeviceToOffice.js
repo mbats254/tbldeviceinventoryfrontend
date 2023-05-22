@@ -60,9 +60,9 @@ export class ReturnDeviceToOffice extends Component {
                 var data = ({
                     device_uniqid : deviceUniqid
                 })
-                axios.post("http://127.0.0.1:8000/inventory/", data,  { headers: headers })
+                axios.post("http://127.0.0.1:8000/inventory/admin/single/device/allocation/", data,  { headers: headers })
                 .then(response => {  
-                    // console.log(response)
+                    console.log(response)
                     var location = response.data['resourceAllocation']['location']
                   
                     this.setState({

@@ -165,7 +165,7 @@ class Home extends Component {
             var device = $(this).attr('id');
             // alert(device)
 
-            window.location.href = "/single/device/user/:"+device
+            // window.location.href = "/single/device/user/:"+device
         })
 
       
@@ -214,7 +214,10 @@ class Home extends Component {
             
             $('#tab-3').hide();
         })
-       
+       $('.close-btn').on("click", function(e){
+        e.preventDefault();
+        $('.modal').fadeOut();
+       })
 
    
 
