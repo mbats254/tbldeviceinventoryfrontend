@@ -360,7 +360,7 @@ class Home extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="modal-footer p-3 justify-content-center row"><a className="btn btn-outline-dark btn-lg text-dark px-5 rounded-pill">Close</a></div>
+                            <div className="modal-footer p-3 justify-content-center row"><a className="btn btn-outline-dark btn-lg text-dark px-5 rounded-pill close-btn">Close</a></div>
                         </div>
                     </div>
                 </div>
