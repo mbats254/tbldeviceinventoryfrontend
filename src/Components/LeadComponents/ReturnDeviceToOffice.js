@@ -64,7 +64,7 @@ export class ReturnDeviceToOffice extends Component {
                 .then(response => {  
                     // console.log(response)
                     var location = response.data['resourceAllocation']['location']
-                  
+                  console.log(location)
                     this.setState({
                         location: location
                     })
@@ -93,7 +93,7 @@ export class ReturnDeviceToOffice extends Component {
             var device_details = res.data
             // alert(device_details['serial_number'])
             this.setState({ deviceSerialNumber: device_details['serial_number'] });
-            // this.getLocation(device_details['uniqid']) 
+            this.getLocation(device_details['uniqid']) 
          
         })   
                           
@@ -145,7 +145,7 @@ export class ReturnDeviceToOffice extends Component {
             var data=({
                 uniqid: localStorage.getItem('user_uniqid')
             })      
-                    axios.post("http://127.0.0.1:8000/inventory/lead/all/team/members/", data, { headers: headers })
+                    axios.get("http://127.0.0.1:8000/inventory/lead/all/team/users/"+localStorage.getItem('user_uniqid'),  { headers: headers })
                             .then(res => {
                         for(var i=0;i<res.data.length;i++)
                             {

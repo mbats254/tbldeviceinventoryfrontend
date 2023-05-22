@@ -204,7 +204,7 @@ export default function ReadcsvFxn() {
     return (
         <div>
         <Headers/>
-        {/* <Sidebar/> */}
+        <Sidebar/>
         <main className='content-container'>
 
                     <div className="container p-2">
@@ -238,10 +238,10 @@ export default function ReadcsvFxn() {
 
             
            
-            <div style={{ marginTop: "3rem" }}>
+            {/* <div style={{ marginTop: "3rem" }}>
                 {error ? error : data.map((col,
                   idx) => <div key={idx}>{col}</div>)}
-            </div>
+            </div> */}
             </form>
             </div>
             </main>

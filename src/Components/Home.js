@@ -29,7 +29,9 @@ class Home extends Component {
           allAllocations: [],
           search_item: null,
           deviceDetails:"",
-          modalDeviceDetails:[]
+          modalDeviceDetails:[],
+          fullName: localStorage.getItem('full_name'),
+          userUniqid: localStorage.getItem('user_uniqid')
 
          
         };
@@ -149,6 +151,7 @@ class Home extends Component {
         console.log(localStorage.getItem('accessToken'))
         console.log(localStorage.getItem('uniqid'))
         $('#tab-btn-1').click()
+        $('#tab-1').show();
         // alert('jfjgjfjg')z
         const headers = {
             'Content-Type': 'application/json',
@@ -205,6 +208,7 @@ class Home extends Component {
             // 
         })
         $('#tab-btn-1').on( "click", function(){
+            //
             $('#tab-1').show();
             $('#tab-2').hide();
             
@@ -233,7 +237,7 @@ class Home extends Component {
                     <header>
                     <img src={logo} style={logoDimensions} className="logoImg btn" />
                         <nav className="navbar navbar-light navbar-expand-md">
-                            <div className="container-fluid"><a className="navbar-brand" href="/user/profile"><img className="rounded-circle" src="https://w7.pngwing.com/pngs/247/564/png-transparent-computer-icons-user-profile-user-avatar-blue-heroes-electric-blue-thumbnail.png" width="70px" alt="round_img" /></a>
+                            <div className="container-fluid"><a className="navbar-brand" href="/user/profile"><img className="rounded-circle" src="https://w7.pngwing.com/pngs/247/564/png-transparent-computer-icons-user-profile-user-avatar-blue-heroes-electric-blue-thumbnail.png" width="70px" alt="round_img" /></a><b>{this.state.fullName}</b>
                                 <ul className="navbar-nav">
                                     <li className="nav-item p-2"><a className="nav-link active" href="/user/notifications"><i className="fa fa-envelope-open-o fa-2x"></i></a></li>
                                     {/* <li className="nav-item p-2"><a className="nav-link" href="/#"><i className="fa fa-file-o fa-2x"></i></a></li> */}
@@ -256,6 +260,56 @@ class Home extends Component {
         <div>
 
             <div className="container justify-content-center">
+            <div className="py-3">
+                    <ul className="nav nav-tabs" role="tablist">
+                        <li className="nav-item" role="presentation"><a className="nav-link tabClass active" role="tab" data-bs-toggle="tab" id="tab-btn-1" href="#">My Devices</a></li>
+                        {/* <li className="nav-item" role="presentation"><a className="nav-link tabClass active" role="tab" data-bs-toggle="tab" href="#" id="tab-btn-2">Team's Devices</a></li> */}
+                        {/* <li className="nav-item" role="presentation"><a className="nav-link tabClass" role="tab" data-bs-toggle="tab" href="#" id="tab-btn-2">My Damaged Devices</a></li> */}
+                    </ul>
+                    <div className="tab-content ">
+                        <div className="tab-pane " role="tabpanel" id="tab-1">
+                            <div className="row bg-light rounded-2 py-1">
+                                <div className="col col-4">
+                                    <h6>Devices</h6>
+                                </div>
+                                <div className="col align-items-end"><i className="fas fa-plus-circle fa-2x text-success btn" data-bs-toggle="modal" data-bs-target="#modal-3" style={{float:'right', cursor:'pointer'}} title="Add Device"></i></div>
+                            </div>
+                            {myDevices.length > 0 ? <div>
+                                {Object.keys(myDevices).map((item, index) => (
+                           <div className="row bg-light rounded-2 flex-row pt-3 border-bottom " style={{cursor:'pointer'}} data-bs-toggle="modal" data-bs-target="#modal-1"> 
+                           
+                               
+                                <div className="col ">
+                                    <div className="row flex-row" style={{flexDirection:'row'}}>
+                                        <div className="col col-2"><i className="fas fa-laptop border p-3 rounded-pill bg-light singleDeviceView" id={myDevices[item]['uniqid']}></i></div>
+                                        <div className="col align-items-start py-2">
+                                            <h6>{myDevices[item]['name']} </h6>
+                                           
+                                            <h6 style={capitalize}>{myDevices[item]['brand']}</h6>
+                                        </div>
+                                        <div className="col col-3 align-items-start py-2 justify-content-end">
+                                        <h6 className="fw-bold text-muted">Serial Number: {myDevices[item]['deviceSerialNumber']}</h6>
+                                        </div>
+                                        <div className="col col-3 align-items-start py-2 justify-content-end">
+                                        
+                                            {/* <h6 className="fw-bold text-success">Active</h6> */}
+                                            {/* href={"/view/device/assignment/:"+myDevices[item]['device_uniqid']} */}
+                                            <button  className="btn btn-success deviceDetails" id={myDevices[item]['uniqid']+"||"+myDevices[item]['device_uniqid']} onClick={this.handleDeviceDetails}>Device Details</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                                ))} 
+                            </div> :  <div className="row bg-light rounded-2 flex-row pt-3 border-bottom " style={{cursor:'pointer'}} data-bs-toggle="modal" data-bs-target="#modal-1"> No Devices Found</div>}
+                           
+
+    
+                               
+                        </div>
+                     
+                     
+                    </div>
+                </div>
                 <div className="modal deviceDetails" role="dialog" tabindex="-1" id="modal-1">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
@@ -310,129 +364,9 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="modal fade" role="dialog" tabindex="-1" id="modal-3">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header"><button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-                            <div className="modal-body">
-                                <div className="card row flex-row pb-4 border rounded-2 shadow-sm">
-                                    <div className="card-header py-3">
-                                        <header className="text-center text-capitalize">
-                                            <h1>Add a Device</h1>
-                                        </header>
-                                    </div>
-                                    <div className="card-body" style={{display:'inline'}}>
-                                        <div className="row p-1">
-                                            <div className="col offset-sm-1">
-                                                <h6>Type</h6><select className="form-control-sm">
-                                                    <optgroup label="This is a group">
-                                                        <option value="12" selected="">This is item 1</option>
-                                                        <option value="13">This is item 2</option>
-                                                        <option value="14">This is item 3</option>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                            <div className="col justify-content-end">
-                                                <h6>Manufacturer</h6><select className="form-control-sm">
-                                                    <optgroup label="This is a group">
-                                                        <option value="12" selected="">This is item 1</option>
-                                                        <option value="13">This is item 2</option>
-                                                        <option value="14">This is item 3</option>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="row px-2">
-                                            <div className="col col-lg-4 col-md-4 col-sm-6">
-                                                <h6 className="fw-light">RAM</h6><select className="form-control-sm">
-                                                    <optgroup label="This is a group">
-                                                        <option value="12" selected="">This is item 1</option>
-                                                        <option value="13">This is item 2</option>
-                                                        <option value="14">This is item 3</option>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                            <div className="col col-lg-4 col-md-4 col-sm-6">
-                                                <h6>Storage Type</h6><select className="form-control-sm">
-                                                    <optgroup label="This is a group">
-                                                        <option value="12" selected="">This is item 1</option>
-                                                        <option value="13">This is item 2</option>
-                                                        <option value="14">This is item 3</option>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                            <div className="col col-lg-4 col-md-4 col-sm-6">
-                                                <h6>Capacity</h6><select className="form-control-sm">
-                                                    <optgroup label="This is a group">
-                                                        <option value="12" selected="">This is item 1</option>
-                                                        <option value="13">This is item 2</option>
-                                                        <option value="14">This is item 3</option>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div className="row p-1">
-                                            <div className="col">
-                                                <h6 className="fw-light">Serial Number</h6><input type="text" className="form-control" placeholder="PRW43454"/>
-                                            </div>
-                                        </div>
-                                        <div className="row text-center py-1">
-                                            <div className="col col-6"><a className="btn btn-outline-dark btn-lg text-dark px-5 rounded-pill border" href="/#">Cancel</a></div>
-                                            <div className="col col-6"><a className="btn btn-warning btn-lg text-white px-5 rounded-pill" href="/#">Save</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="py-3">
-                    <ul className="nav nav-tabs" role="tablist">
-                        <li className="nav-item" role="presentation"><a className="nav-link tabClass active" role="tab" data-bs-toggle="tab" id="tab-btn-1" href="#">My Devices</a></li>
-                        {/* <li className="nav-item" role="presentation"><a className="nav-link tabClass active" role="tab" data-bs-toggle="tab" href="#" id="tab-btn-2">Team's Devices</a></li> */}
-                        {/* <li className="nav-item" role="presentation"><a className="nav-link tabClass" role="tab" data-bs-toggle="tab" href="#" id="tab-btn-2">My Damaged Devices</a></li> */}
-                    </ul>
-                    <div className="tab-content ">
-                        <div className="tab-pane " role="tabpanel" id="tab-1">
-                            <div className="row bg-light rounded-2 py-1">
-                                <div className="col col-4">
-                                    <h6>Devices</h6>
-                                </div>
-                                <div className="col align-items-end"><i className="fas fa-plus-circle fa-2x text-success btn" data-bs-toggle="modal" data-bs-target="#modal-3" style={{float:'right', cursor:'pointer'}} title="Add Device"></i></div>
-                            </div>
-                            {Object.keys(myDevices).map((item, index) => (
-                           <div className="row bg-light rounded-2 flex-row pt-3 border-bottom " style={{cursor:'pointer'}} data-bs-toggle="modal" data-bs-target="#modal-1"> 
-                           
-                               
-                                <div className="col ">
-                                    <div className="row flex-row" style={{flexDirection:'row'}}>
-                                        <div className="col col-2"><i className="fas fa-laptop border p-3 rounded-pill bg-light singleDeviceView" id={myDevices[item]['uniqid']}></i></div>
-                                        <div className="col align-items-start py-2">
-                                            <h6>{myDevices[item]['name']} </h6>
-                                           
-                                            <h6 style={capitalize}>{myDevices[item]['brand']}</h6>
-                                        </div>
-                                        <div className="col col-3 align-items-start py-2 justify-content-end">
-                                        <h6 className="fw-bold text-muted">Serial Number: {myDevices[item]['deviceSerialNumber']}</h6>
-                                        </div>
-                                        <div className="col col-3 align-items-start py-2 justify-content-end">
-                                        
-                                            {/* <h6 className="fw-bold text-success">Active</h6> */}
-                                            {/* href={"/view/device/assignment/:"+myDevices[item]['device_uniqid']} */}
-                                            <button  className="btn btn-success deviceDetails" id={myDevices[item]['uniqid']+"||"+myDevices[item]['device_uniqid']} onClick={this.handleDeviceDetails}>Device Details</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-    ))}   
-
-    
-                               
-                        </div>
-                     
-                     
-                    </div>
-                </div>
+                
+                
+               
             </div>
         </div>
     </main>

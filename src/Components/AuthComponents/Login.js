@@ -73,6 +73,8 @@ export class StaffLogin extends Component {
                             localStorage.setItem('user_team',response.data['team'])
                             localStorage.removeItem('username')
                             localStorage.setItem('username',response.data['username'])
+                            localStorage.removeItem('full_name')
+                            localStorage.setItem('full_name',response.data['full_name'])
                             localStorage.removeItem('rank')
                             localStorage.setItem('rank',response.data['rank'])
                             console.log( localStorage.getItem('rank'))

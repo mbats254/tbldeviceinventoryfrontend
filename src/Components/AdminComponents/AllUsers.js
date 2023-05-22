@@ -122,9 +122,7 @@ export class AllUsers extends Component {
                 console.log(error)
             })
         });
-        $('.patientDetails').hide()
-   
-            console.log(localStorage.getItem('accessToken'))
+      console.log(localStorage.getItem('accessToken'))
            axios.get("http://127.0.0.1:8000/inventory/admin/all/users/", { headers: headers })
                 .then(res => {
                    

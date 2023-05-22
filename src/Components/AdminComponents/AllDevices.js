@@ -344,15 +344,15 @@ export class AllDevices extends Component {
                                 <p>Type: <span className="type"></span></p>
                                 <p>Brand: <span className="brand"></span></p>
                                 <p>Serial Number: <span className="serial_number"></span></p>
-                                {rank !== 'admin' ?
+                            
                                 <div>
                                 <button className='btn btn-success AssignDevice' style={displayHidden}>Assign Device</button>
-                                <h4 className='AssignedTo' style={displayHidden}>Assigned to: <b className="AssignedName"></b></h4>
+                                {/* <h4 className='AssignedTo' style={displayHidden}>Assigned to: <b className="AssignedName"></b></h4> */}
                                     
-                                <span><button className='btn btn-danger AssignDevice2' style={displayHidden}>Reassign Device</button></span>
+                                {/* <span><button className='btn btn-danger AssignDevice2' style={displayHidden}>Reassign Device</button></span> */}
                                 </div>
                                
-                           : <button  className='btn btn-primary ViewDeviceAssignment'>View Device Assignment Details</button> }
+                            {/* <button  className='btn btn-primary ViewDeviceAssignment'>View Device Assignment Details</button>  */}
                                 
                                 {/* <a href className='btn btn-danger'>View Other  <span className="Name"></span> Devices  </a> */}
                                 <p className="staffId" style={displayHidden}></p>

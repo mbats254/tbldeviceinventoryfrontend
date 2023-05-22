@@ -76,8 +76,9 @@ export class AssignDevice extends Component {
         var data=({
             uniqid: localStorage.getItem('user_uniqid')
         })      
-       axios.post("http://127.0.0.1:8000/inventory/lead/all/team/members/", data, { headers: headers })
+       axios.get("http://127.0.0.1:8000/inventory/lead/all/team/users/"+localStorage.getItem('user_uniqid'), data, { headers: headers })
             .then(res => {
+                console.log(res.data)
            for(var i=0;i<res.data.length;i++)
             {
                 

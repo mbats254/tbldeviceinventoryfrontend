@@ -1,20 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import axios from 'axios'
-// import Headers from 'LayoutComponents/Headers'; 
-import Headers from '../LayoutComponents/Headers'; 
-import Sidebar from '../LayoutComponents/Sidebar'; 
- 
-import '../assets/bootstrap/css/bootstrap.min.css' 
-import '../assets/fonts/font-awesome.min.css'
-import '../assets/css/styles.css'
-import '../assets/css/styles.min.css'
-import '../assets/fonts/fontawesome-all.min.css'
-import '../assets/fonts/fontawesome5-overrides.min.css'
-import '../assets/bootstrap/css/bootstrap.min.css'  
-import $ from 'jquery';
-import { template } from '@babel/core'
-import { withRouter  } from "react-router-dom";
-import logo from '../assets/Images/TEMP.PNG';
+import $ from 'jquery'
+import Headers from '../LayoutComponents/Headers'
+import Sidebar from '../LayoutComponents/Sidebar'
+import { config } from '../_helpers/global'
+import { MDBDataTable } from '../_mdbcomponents/components/DataTable/DataTable';
 
 export class AllTeamMembers extends Component {
     constructor(props) {
@@ -24,11 +14,6 @@ export class AllTeamMembers extends Component {
         this.state = {
             visitid: "",
             verified: "",
-            UserList: "",
-            name:"",
-            brand:"",
-
-
             DataLoaded: false,
         };
 
@@ -43,65 +28,131 @@ export class AllTeamMembers extends Component {
     }
 
 
+    handleRowClick(staff) {
 
+        $('.patientDetails').show()
+        $('.staffName').attr('id', staff.full_name)
+        var details = staff.first_name + ' '+staff.last_name + '(' + staff.username + ')'
+        $('.staffName').text(details)
+        // var visitId = (patient.visitid).split('_')
+        // var serialNumber = visitId[1]
+        // var visitNumber = visitId[2]
+
+        $('.Specialty').text(staff.specialty)
+        $('.Name').text(details)
+        $('.Email').text(staff.email)
+        $('.staffId').text(staff.username)
+        $('.staffUniqid').text(staff.uniqid)
+
+        // {
+        //     label: "Number of Visit",
+        //     field: "EvolutionAndTreatment",
+        //     sort: "asc",
+        //     width: 50
+        // },
+        // {
+        //     label: "Serial Number",
+        //     field: "EvolutionAndTreatment",
+        //     sort: "asc",
+        //     width: 50
+        // },
+
+    }
 
     componentDidMount() {
         // document.getElementById("LoadingModal").style.display = "flex";
- 
+
         const headers = {
             'Content-Type': 'application/json',
             'token': localStorage.getItem('accessToken'),
 
         }
-        // $('.viewsdevices').on('click',function(){
-            $('.viewUserDevices').click( function(e){
-                e.preventDefault()
-                // alert
-                var uniqid  = this.value;
-                console.log(uniqid)
-                // window.location.href = /single/member/
-            })
-            // var uniqid = localStorage.getItem('userDeviceChekced')
-            // console.log(uniqid)
+        $('.viewsdevices').on('click',function(){
+            var uniqid = $('.staffUniqid').text()
+
             var data = {
-                uniqid : localStorage.getItem('user_uniqid')
+                uniqid : uniqid
             }
 
-            // console.log(localStorage.getItem('user_uniqid'))
+            console.log(data)
 
-        //    console.log(data)
+            localStorage.removeItem('userDeviceChekced')
+            localStorage.setItem('userDeviceChekced', uniqid)
 
-            axios.post("http://127.0.0.1:8000/inventory/lead/all/team/members/", data, { headers: headers })
-            .then(res => {
-                console.log(res.data)
-            //    this.setState({
-            //     UserList: res.data,
-            //     // name
-            //    })
-               for(var i=0;i<res.data.length;i++)
-               {
-                var div = ' <div className="card"> <div className="card-header">'+res.data[i]['username']+'</div><div className="card-body">'+res.data[i]['full_name']+'</div> <div className="card-footer"><a href="/single/member/:'+res.data[i]['uniqid']+'" id='+res.data[i]['uniqid']+' className="btn btn-primary viewUserDevices">View User Devices</a></div></div><br/>'
-                $('.allDevices').append(div)
-            }
+            // axios.post("http://127.0.0.1:8000/inventory/admin/single/user/devices/", data, { headers: headers })
+            // .then(res => {
+
+            
               
-            //   console.log(res.data)
-                // setTimeout(function (props) {
-                //     window.location.href = '/admin/single/user/devices'
+                setTimeout(function (props) {
+                    window.location.href = '/admin/single/user/devices'
                    
-                // }, 1500);
+                }, 1500);
+
+            // })
+            // .catch(error => {
+            //     console.log(error)
+            // })
+
+        })
+
+        $('.removeUser').click(function(){
+            var username = $('.staffId').text()
+            
+        var data = {
+            nullified : username
+        }
+            axios.post(this.api_url+"chief/nullify", data, { headers: headers })
+            .then(res => {
+
+                  $('.alert-success').show()
+                    setTimeout(function () {
+                        //
+                        $('.alert-success').hide()
+                    }, 6000);
+              
+                setTimeout(function (props) {
+                    $('.modal').hide()
+                    // this.props.history.push('/reception/dashboard')
+                }, 1500);
 
             })
             .catch(error => {
                 console.log(error)
             })
+        });
+      console.log(localStorage.getItem('accessToken'))
+           axios.get("http://127.0.0.1:8000/inventory/lead/all/team/users/"+localStorage.getItem('user_uniqid'), { headers: headers })
+                .then(res => {
+                   let tableinit = res.data;
+                   console.log(tableinit)
+                    // console.log(typeof(table))
+                    let object = {};
+                    for (let i = 0; i < tableinit.length; i++) {
+                        delete tableinit[i]._id;
+                        delete tableinit[i].timeOfRegistration;
+                        tableinit[i].clickEvent = () => this.handleRowClick(tableinit[i]);
+                    }
+               
 
-        // })
 
-      
-        $('.patientDetails').hide()
-   
-            console.log(localStorage.getItem('accessToken'))
- 
+                    // alert(table)
+                    this.TableData = tableinit;
+                    // console.log(this.TableData);
+                    this.setState({
+                        DataLoaded: true
+                    });
+
+                    // var searchRow = '<tr><td>'+number+'</td> <td>'+res.data[i]['Name']+'</td><td>'+res.data[i]['Age']+'</td><td>'+res.data[i]['Profession']+'</td><td>'+res.data[i]['MaritalStatus']+'</td><td>'+res.data[i]['Address']+'</td><td>'+res.data[i]['Tel ']+'</td><td>'+res.data[i]['Nationality']+'</td><td>'+date+'</td><td>'+time+'</td><td>'+visitNumber+'</td><td>'+serialNumber+'</td><td></td><td></td><td><a className="btn btn-primary startTreatment" id="'+res.data[i]['visitid']+'">Start Treatment</a></td></tr>'
+                    // $('.searchClass').append(searchRow)
+                
+
+            
+
+                })
+                .catch(error => {
+                    console.log(error)
+                })
 
 
 
@@ -115,68 +166,113 @@ export class AllTeamMembers extends Component {
 
 
     }
-	render() {
-        const {
-            deviceDetails
-                    } = this.state;
-                    const font16 = { fontSize: '16px' };
-                    const fontFamilyNunito = { fontFamily: 'Nunito, sans-serif' };
-                    const floatRight = { float: 'right' }
-                    const floatLeft = { float: 'left' }
-                    const displayHidden = { display: 'none' }
-		return (
-			<div>
-				    <Headers />
-                    <Sidebar/>                {/* */}
-				<section className="service-area more-top-padding" id="services">
-					<div className="container more-top-padding allDevices">
-						<div className="row">
-							<div className="col-xs-12">
 
-							</div>
-						</div><br /><br />
-					
-						
-								{/* <div className="service-wrap text-center">
-									<div className="service-icon">
-										
-									</div>
-									<h3><a href="/input/patient/details"> New Patient Details </a> </h3>
-									<p>
-										Here, Enter all the required details for a new Patient
-									</p>
-								</div> */}
-                                 <h2>All Team Members</h2>
-  {/* <div className="card">
-    <div className="card-header">{deviceDetails['name']}</div>
-    {/* <div className="card-body">{deviceDetails}</div>  *
-    <div className="card-footer">Footer</div>
-  </div>
-  <br/>
-  <div className="card">
-    <div className="card-header">Header</div>
-    <div className="card-body">Content</div> 
-    <div className="card-footer">Footer</div>
-  </div>
 
-<div className="card">
-  <div className="card-body">Basic card</div>
-</div>
+ 
 
-<div className="card">
-  <div className="card-body">Basic card</div>
-</div> */}
+    render() {
+        // Complications = request.json["Complications"],
+        // PregnancyDate = request.json["PregnancyDate"],
+        // EvolutionAndTreatment = request.json["EvolutionAndTreatment"],
 
-							
-							
+        const font16 = { fontSize: '16px' };
+        const fontFamilyNunito = { fontFamily: 'Nunito, sans-serif' };
+        const floatRight = { float: 'right' }
+        const floatLeft = { float: 'left' }
+        const displayHidden = { display: 'none' }
 
-						
-					</div>
-				</section>
-				
-			</div>
-		)
-	}
+        const { Complications,
+            PregnancyDate,
+            EvolutionAndTreatment
+        } = this.state
+
+        let { DataLoaded } = this.state;
+        const tabledata = {
+
+
+            columns: [
+                {
+                    label: "Full Name",
+                    field: "full_name",
+                    sort: "asc",
+                    width: 50
+                },
+                {
+                    label: "UserName",
+                    field: "username",
+                    sort: "asc",
+                    width: 50
+                },
+                {
+                    label: "Email",
+                    field: "email",
+                    sort: "asc",
+                    width: 50
+                },
+                              
+               
+
+               
+
+
+            ],
+            rows: this.TableData
+        };
+        return (
+            <div>
+                <Headers />
+                    <Sidebar/>
+                <main>
+
+                    <div className="container p-2">
+                        <form>
+
+
+
+                            <div className="form-row pt-4">
+                                <div className="col-md-4 text-lg-center font-weight-bold p-1">
+                                    <p className="text-capitalize" style={font16}></p>
+                                </div>
+                                <MDBDataTable striped bordered data={tabledata} />
+
+                            </div>
+
+
+                        </form>
+                    </div>
+                </main>
+                <div className="modal patientDetails" tabIndex="-1" role="dialog">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title staffName"> </h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <p>Name: <span className="Name"></span></p>
+                                <p>Specialty: <span className="Specialty"></span></p>
+                                <p>Email: <span className="Email"></span></p>
+                                <button className='btn btn-success viewsdevices ' >View User Devices</button>
+
+                                {/* <span><button className='btn btn-danger removeUser ' >Remove User</button></span> */}
+                                
+                                <p className="staffId" style={displayHidden}></p>
+                                <p className="staffUniqid" style={displayHidden}></p>
+
+                                <div id='loginSuccess' className="alert alert-success" style={displayHidden} role="alert">
+                                    <strong>Success! </strong>User Nullified Successfully
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        )
+    }
 }
 
 export default AllTeamMembers

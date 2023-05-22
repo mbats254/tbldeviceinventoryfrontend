@@ -161,6 +161,7 @@ window.addEventListener('DOMContentLoaded', event => {
  <a  className="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/all/teams">All Teams</a>
  <a  className="list-group-item list-group-item-action list-group-item-light p-3" href="/admin/all/devices">All Devices</a>
  <a className="list-group-item list-group-item-action list-group-item-light p-3" href="/all/damaged/devices">All Damaged Devices</a>
+ <a className="list-group-item list-group-item-action list-group-item-light p-3" href="/input/excel/sheet">Input Excel Sheet</a>
  <div className="border-end bg-white" id="sidebar-wrapper">
  
                 
@@ -184,7 +185,8 @@ window.addEventListener('DOMContentLoaded', event => {
 <a className="list-group-item list-group-item-action list-group-item-light p-3" href="/all/team/members">All Team Members</a>
 <a className="list-group-item list-group-item-action list-group-item-light p-3" href={"/all/team/devices/:"+userTeam}>All Team Devices</a>
 <a className="list-group-item list-group-item-action list-group-item-light p-3" href="/team/damaged/devices">Team Damaged Devices</a>
-
+<a className="list-group-item list-group-item-action list-group-item-light p-3" href="/return/device/office">Return Device To Office</a>
+<a className="list-group-item list-group-item-action list-group-item-light p-3" href="/input/excel/sheet">Input Excel Sheet</a>
 
  </div>
  </div>
