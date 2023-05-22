@@ -34,7 +34,8 @@ export class ReturnDeviceToOffice extends Component {
             loggeduser_uniqid : localStorage.getItem('user_uniqid'),
             deviceSerialNumber:'',
             allTeams:'',
-            team_allocated:''
+            team_allocated:'',
+            condition:''
 
           
         };
@@ -221,7 +222,7 @@ export class ReturnDeviceToOffice extends Component {
         {
           
 
-            axios.post('http://127.0.0.1:8000/inventory/admin/assign/team/device', this.state, { headers: headers })
+            axios.post('http://127.0.0.1:8000/inventory/lead/return/device/office/', this.state, { headers: headers })
             .then(response => {
                 console.log(response.data)
 
@@ -315,7 +316,8 @@ export class ReturnDeviceToOffice extends Component {
             allDevices,
             device_uniqid,
             selectedId,
-            location
+            location,
+            condition
             
             
 
@@ -384,12 +386,30 @@ export class ReturnDeviceToOffice extends Component {
                                 </div>
                                 <div className="col-md-12 p-2">
                                     <div className="py-1 ">
+                                        <h6 className="text-capitalize" style={fontFamilyNunito}>Device Condition</h6>
+
+                                        <select className="form-control username" onChange={this.handleChange} value={condition} name="condition" >
+                                            <optgroup label="Choose Username ">
+                                                <option defaultValue="Default" disabled></option>
+                                                <option class="form-conrol" value="good_condition">Good Condition</option>
+                                                <option class="form-conrol" value="damaged(not reported)">Damaged(Not Reported)</option>
+                                                <option class="form-conrol" value="damaged(reported)">Damaged(Reported)</option>
+                                                
+                                             
+
+                                            </optgroup>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                {/* <div className="col-md-12 p-2">
+                                    <div className="py-1 ">
                                         <h6 className="text-capitalize" style={fontFamilyNunito}>Location</h6>
 
                                         <input type="text" readOnly className="form-control " onChange={this.handleChange}  value={location} name="location"  />
                                     </div>
 
-                                </div>                            
+                                </div>                             */}
                                 
                                     </div>
 

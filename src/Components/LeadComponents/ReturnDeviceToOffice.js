@@ -34,7 +34,8 @@ export class ReturnDeviceToOffice extends Component {
             loggeduser_uniqid : localStorage.getItem('user_uniqid'),
             deviceSerialNumber:'',
             allTeams:'',
-            team_allocated:''
+            team_allocated:'',
+            condition:''
 
           
         };
@@ -217,42 +218,9 @@ export class ReturnDeviceToOffice extends Component {
         // 
         console.log( localStorage.getItem('rank'))
       
-        if(localStorage.getItem('rank') == 'admin')
-        {
-          
-
-            axios.post('http://127.0.0.1:8000/inventory/admin/assign/team/device', this.state, { headers: headers })
-            .then(response => {
-                console.log(response.data)
-
-                if (response['status']) {
-                      $('.alert-success').show()
-                    setTimeout(function () {
-                        //
-                        $('.alert-success').hide()
-                    }, 6000);
-                    
-
-                }
-                else 
-                {
-                   
-                    $('.alert-success').hide()
-                    // this.handleSubmit()   
-                }
-
-            
-
-
-            })
-            .catch(error => {
-               
-                console.log(error)
-            })
-        }
-        else
-        {
-            axios.post('http://127.0.0.1:8000/inventory/lead/assign/new/device/', this.state, { headers: headers })
+        
+       
+            axios.post('http://127.0.0.1:8000/inventory/lead/return/device/office/', this.state, { headers: headers })
             .then(response => {
                 console.log(response)
 
@@ -283,7 +251,7 @@ export class ReturnDeviceToOffice extends Component {
                 $('.submitbtn').click()
                 console.log(error)
             })
-        }
+        
      
 
 
@@ -315,7 +283,8 @@ export class ReturnDeviceToOffice extends Component {
             allDevices,
             device_uniqid,
             selectedId,
-            location
+            location,
+            condition
             
             
 
@@ -384,12 +353,22 @@ export class ReturnDeviceToOffice extends Component {
                                 </div>
                                 <div className="col-md-12 p-2">
                                     <div className="py-1 ">
-                                        <h6 className="text-capitalize" style={fontFamilyNunito}>Location</h6>
+                                        <h6 className="text-capitalize" style={fontFamilyNunito}>Device Condition</h6>
 
-                                        <input type="text" readOnly className="form-control " onChange={this.handleChange}  value={location} name="location"  />
+                                        <select className="form-control" onChange={this.handleChange} value={condition} name="condition" >
+                                            <optgroup label="Choose Username ">
+                                                <option defaultValue="Default" disabled></option>
+                                                <option class="form-conrol" value="good_condition">Good Condition</option>
+                                                <option class="form-conrol" value="damaged(not reported)">Damaged(Not Reported)</option>
+                                                <option class="form-conrol" value="damaged(reported)">Damaged(Reported)</option>
+                                                
+                                             
+
+                                            </optgroup>
+                                        </select>
                                     </div>
 
-                                </div>                            
+                                </div>                           
                                 
                                     </div>
 
@@ -402,7 +381,7 @@ export class ReturnDeviceToOffice extends Component {
                             <div className="row">
                                 {/* <a className="btn btn-primary checkHistory" style={displayHidden}>Check Patient History</a> */}
                                 {/* <div  className="col col-6"><button className="btn btn-primary btn-warning rounded-pill px-4 font-weight-bold data-entered" type="button" style={floatRight}>See the Data Entered</button></div> */}
-                               {location == 'home' ? <div className="col col-6"><button className="btn btn-primary btn-warning rounded-pill px-5 font-weight-bold submitbtn" type="submit" style={floatLeft}>Submit</button></div> : <div className="col col-6"><button className="btn btn-primary btn-warning rounded-pill px-5 font-weight-bold" type="submit" style={floatLeft} disabled>Submit</button></div>} 
+                          <div className="col col-6"><button className="btn btn-primary btn-warning rounded-pill px-5 font-weight-bold submitbtn" type="submit" style={floatLeft}>Submit</button></div>
                                 
                             
                             </div>
