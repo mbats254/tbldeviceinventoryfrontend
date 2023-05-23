@@ -223,6 +223,7 @@ export class ReturnDeviceToOffice extends Component {
             axios.post('http://127.0.0.1:8000/inventory/lead/return/device/office/', this.state, { headers: headers })
             .then(response => {
                 console.log(response)
+                
 
                 if (response['status']) {
                       $('.alert-success').show()

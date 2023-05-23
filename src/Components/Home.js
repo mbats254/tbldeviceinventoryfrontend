@@ -146,6 +146,7 @@ class Home extends Component {
             })
 
       }
+      
 
     componentDidMount() {
         console.log(localStorage.getItem('accessToken'))
@@ -158,6 +159,11 @@ class Home extends Component {
             'token': localStorage.getItem('accessToken'),
 
         }
+        $('.viewAssignment').click(function(){
+            var id = $(this).attr("id")
+            // alert(id)
+            window.location.href = "/view/device/assignment/:"+id
+        })
 
         $('.deviceDetails').click(function(e){
             e.preventDefault()
@@ -359,7 +365,7 @@ class Home extends Component {
                                                 <h6>Capacity: {modalDeviceDetails['capacity']}</h6>
                                             </div>
                                         </div>
-                                        <div className="text-center py-1"><a className="btn btn-warning btn-lg text-white px-5 rounded-pill" href={"/view/device/assignment/"+modalDeviceDetails['device_uniqid']}>View Assignemnt Details</a></div>
+                                        <div className="text-center py-1"><a className="btn btn-warning btn-lg text-white px-5 rounded-pill viewAssignment" id={modalDeviceDetails['device_uniqid']} href={"/view/device/assignment/"+modalDeviceDetails['device_uniqid']}>View Assignemnt Details</a></div>
                                     </div>
                                 </div>
                             </div>
